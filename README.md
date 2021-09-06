@@ -15,7 +15,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
   `datvo@linuxserver:~$ sudo chmod 600 ~/.ssh/authorized_keys`
 
 2. Secure SSHD
-  `datvo@linuxserver:~$ sudo nano /etc/ssh/sshd_config`
+  `datvo@linuxserver:~$ sudo nano /etc/ssh/sshd_config` \
   Add the fllowing in your sshd_config file:
 
   `AuthorizedKeysFile /home/datvo(must be eidt)/.ssh/authorized_keys`
