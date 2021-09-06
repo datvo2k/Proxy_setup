@@ -28,7 +28,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     PermitEmptyPasswords no
     ```
 
-3. Install fail2ban \ 
+3. Install fail2ban 
     `sudo apt install fail2ban` \
     `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
     `sudo nano /etc/fail2ban/jail.local`  \
@@ -73,8 +73,8 @@ Hello everyone, before you continue, ensure you meet the following requirements:
      CGroup: /system.slice/fail2ban.service
              └─4883 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
     ```
-4. Enable ufw \
-    ` sudo ufw enable`
+4. Enable ufw 
+    ` sudo ufw enable` \
     `sudo ufw allow ssh`  
 6. Block IP using GeoIP (if you need) \
     `sudo apt install snapd` \
