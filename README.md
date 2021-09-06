@@ -2,7 +2,7 @@
 Hello everyone, before you continue, ensure you meet the following requirements:
 * This setup on Ubuntu server 20.04 LTS
 * Puttygen on windows client
-* 
+
 `datvo@linuxserver:~$ sudo apt-get update && sudo apt-get upragde -y`
 
 ## Config your sshd server
@@ -18,16 +18,16 @@ Hello everyone, before you continue, ensure you meet the following requirements:
   `datvo@linuxserver:~$ sudo nano /etc/ssh/sshd_config` \
   Add the fllowing in your sshd_config file: \ 
 
-  `AuthorizedKeysFile /home/datvo(must be eidt)/.ssh/authorized_keys` \
-  `PermitRootLogin no` \
-  `ChallengeResponseAuthentication no` \
-  `PasswordAuthentication no` \
-  `UsePAM no` \
-  `PubkeyAuthentication yes` \
-  `PermitEmptyPasswords no` \
+    `AuthorizedKeysFile /home/datvo(must be eidt)/.ssh/authorized_keys` \
+    `PermitRootLogin no` \
+    `ChallengeResponseAuthentication no` \
+    `PasswordAuthentication no` \
+    `UsePAM no` \
+    `PubkeyAuthentication yes` \
+    `PermitEmptyPasswords no` 
 
 3. Install fail2ban \
   `datvo@linuxserver:~$ sudo apt install fail2ban` \
   `datvo@linuxserver:~$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
-  `datvo@linuxserver:~$ sudo nano /etc/fail2ban/jail.local` \
+  `datvo@linuxserver:~$ sudo nano /etc/fail2ban/jail.local` 
 
