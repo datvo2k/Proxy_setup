@@ -32,7 +32,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     `sudo apt install fail2ban` \
     `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
     `sudo nano /etc/fail2ban/jail.local`  \
-    Enter your setting in:\
+    Enter your setting in:
     ```
     # "bantime" is the number of seconds that a host is banned.  
     bantime  = 60d 
@@ -56,9 +56,11 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     findtime = 1d 
     maxretry = 3
     ```
-    `sudo systemctl restart fail2ban`
-    `sudo systemctl status fail2ban`
-    The output wiil look like this: \
+    
+    `sudo systemctl restart fail2ban` \
+    `sudo systemctl status fail2ban` \
+    
+    The output wiil look like this: 
     ```
     ● fail2ban.service - Fail2Ban Service
      Loaded: loaded (/lib/systemd/system/fail2ban.service; enabled; vendor preset: enabled)
@@ -71,16 +73,17 @@ Hello everyone, before you continue, ensure you meet the following requirements:
      CGroup: /system.slice/fail2ban.service
              └─4883 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
     ```
-4. Enable ufw:
+4. Enable ufw \
     ` sudo ufw enable`
     `sudo ufw allow ssh`  
-6. Block IP using GeoIP (if you need):
+6. Block IP using GeoIP (if you need) \
     `sudo apt install snapd` \
-    `sudo snap install geoip-lookup`
+    `sudo snap install geoip-lookup` \
     Go to: \
-    `touch /usr/local/bin/sshfilter.sh`
-    `sudo nano /usr/local/bin/sshfilter.sh`
-    Copy this script and edit your country: `
+    `touch /usr/local/bin/sshfilter.sh` \
+    `sudo nano /usr/local/bin/sshfilter.sh` \
+    Copy this script and edit your country: \ 
+    
     ```
     #!/bin/bash
 
