@@ -73,7 +73,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
      CGroup: /system.slice/fail2ban.service
              └─4883 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
     ```
-4. Enable ufw 
+4. Enable ufw \
     ` sudo ufw enable` \
     `sudo ufw allow ssh`  
 6. Block IP using GeoIP (if you need) \
@@ -120,10 +120,11 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     `sudo cat /var/log/syslog | grep 'sshd'`
 
   ## Config squid server
-  1. Install squid
+  1. Install squid \
     `sudo apt install squid`
   2. Configuring Squid server
-    ```
+  
+    
     # And finally deny all other access to this proxy
     http_access allow all
 
@@ -136,7 +137,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
 
     # Leave coredumps in the first cache dir
     coredump_dir /var/spool/squid
-    ```
+    
 
     if you want to anonymize 
     ```
@@ -159,7 +160,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     request_header_access Connection allow all
     request_header_access All deny all
 
-    ```
+    
 3.After config: 
   ` sudo systemctl restart squid` \
   ` sudo systemctl status squid ` \
