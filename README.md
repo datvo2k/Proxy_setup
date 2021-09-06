@@ -18,39 +18,44 @@ Hello everyone, before you continue, ensure you meet the following requirements:
   `datvo@linuxserver:~$ sudo nano /etc/ssh/sshd_config` \
   Add the following in your sshd_config file: 
 
-    `AuthorizedKeysFile /home/datvo(must be eidt)/.ssh/authorized_keys \
-    PermitRootLogin no \
-    ChallengeResponseAuthentication no \
-    PasswordAuthentication no \
-    UsePAM no \
-    PubkeyAuthentication yes \
-    PermitEmptyPasswords no` 
+    ````
+    AuthorizedKeysFile /home/datvo(must be eidt)/.ssh/authorized_keys 
+    PermitRootLogin no 
+    ChallengeResponseAuthentication no 
+    PasswordAuthentication no 
+    UsePAM no 
+    PubkeyAuthentication yes 
+    PermitEmptyPasswords no
+    ````
 
 3. Install fail2ban \
   `datvo@linuxserver:~$ sudo apt install fail2ban` \
   `datvo@linuxserver:~$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
   `datvo@linuxserver:~$ sudo nano /etc/fail2ban/jail.local`  \
   Enter your setting in: \
-  `# "bantime" is the number of seconds that a host is banned. \ 
-  bantime  = 60d \
-  # A host is banned if it has generated "maxretry" during the last "findtime" \
-  # seconds. \
-  findtime  = 60 \
-  # "maxretry" is the number of failures before a host get banned. \
-   maxretry = 3 ` \
-  
-  `[sshd] \
-  # To use more aggressive sshd modes set filter parameter "mode" in jail.local: \
-  # normal (default), ddos, extra or aggressive (combines all). \
-  # See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details. \
-  #mode   = normal \
-  enabled = true \
-  port    = ssh \
-  logpath = %(sshd_log)s \
-  backend = %(sshd_backend)s \
-  bantime = 4w \
-  findtime = 1d \
-  maxretry = 3`
+  ````
+  # "bantime" is the number of seconds that a host is banned.  
+  bantime  = 60d 
+  # A host is banned if it has generated "maxretry" during the last "findtime" 
+  # seconds. 
+  findtime  = 60 
+  # "maxretry" is the number of failures before a host get banned. 
+   maxretry = 3 
+  ````
+  ````
+  [sshd] 
+  # To use more aggressive sshd modes set filter parameter "mode" in jail.local: 
+  # normal (default), ddos, extra or aggressive (combines all). 
+  # See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details. 
+  #mode   = normal 
+  enabled = true 
+  port    = ssh 
+  logpath = %(sshd_log)s 
+  backend = %(sshd_backend)s 
+  bantime = 4w 
+  findtime = 1d 
+  maxretry = 3
+  ````
 
   
 
