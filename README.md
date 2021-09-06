@@ -58,7 +58,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     ```
     
     `sudo systemctl restart fail2ban` \
-    `sudo systemctl status fail2ban` \
+    `sudo systemctl status fail2ban` 
     
     The output wiil look like this: 
     ```
@@ -78,11 +78,13 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     `sudo ufw allow ssh`  
 6. Block IP using GeoIP (if you need) \
     `sudo apt install snapd` \
-    `sudo snap install geoip-lookup` \
+    `sudo snap install geoip-lookup` 
+    
     Go to: \
     `touch /usr/local/bin/sshfilter.sh` \
-    `sudo nano /usr/local/bin/sshfilter.sh` \
-    Copy this script and edit your country: \ 
+    `sudo nano /usr/local/bin/sshfilter.sh` 
+    
+    Copy this script and edit your country: 
     
     ```
     #!/bin/bash
@@ -108,15 +110,14 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     fi
 
     ```
-    Save file: \ 
+    Save file: \
     `sudo chmod +x /usr/local/bin/sshfilter.sh` \
     Apply SSH estrictions using TCP wrappers. \
-    `sudo nano /etc/hosts.deny`
+    `sudo nano /etc/hosts.deny` \
     `sshd: ALL`
 
     Now edit /etc/hosts.allow \
-    `sshd: ALL: aclexec /usr/local/bin/sshfilter.sh %a`
-    You can see all accessing SSH from an IP address \
+    `sshd: ALL: aclexec /usr/local/bin/sshfilter.sh %a` You can see all accessing SSH from an IP address \
     `sudo cat /var/log/syslog | grep 'sshd'`
 
   ## Config squid server
