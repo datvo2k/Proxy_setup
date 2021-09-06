@@ -28,11 +28,11 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     PermitEmptyPasswords no
     ```
 
-3. Install fail2ban 
+3. Install fail2ban \ 
     `sudo apt install fail2ban` \
     `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
     `sudo nano /etc/fail2ban/jail.local`  \
-    Enter your setting in:  \
+    Enter your setting in:\
     ```
     # "bantime" is the number of seconds that a host is banned.  
     bantime  = 60d 
@@ -58,7 +58,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     ```
     `sudo systemctl restart fail2ban`
     `sudo systemctl status fail2ban`
-    The output wiil look like this:
+    The output wiil look like this: \
     ```
     ● fail2ban.service - Fail2Ban Service
      Loaded: loaded (/lib/systemd/system/fail2ban.service; enabled; vendor preset: enabled)
