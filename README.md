@@ -28,11 +28,11 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     PermitEmptyPasswords no
     ```
 
-3. Install fail2ban \
+3. Install fail2ban 
     `sudo apt install fail2ban` \
     `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
     `sudo nano /etc/fail2ban/jail.local`  \
-    Enter your setting in: 
+    Enter your setting in:  \
     ```
     # "bantime" is the number of seconds that a host is banned.  
     bantime  = 60d 
@@ -72,96 +72,96 @@ Hello everyone, before you continue, ensure you meet the following requirements:
              └─4883 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
     ```
 4. Enable ufw:
-  ` sudo ufw enable`
-  `sudo ufw allow ssh`  
+    ` sudo ufw enable`
+    `sudo ufw allow ssh`  
 6. Block IP using GeoIP (if you need):
-  `sudo apt install snapd`
-  'sudo snap install geoip-lookup'
-  Go to: \
-  `touch /usr/local/bin/sshfilter.sh`
-  `sudo nano /usr/local/bin/sshfilter.sh`
-  Copy this script and edit your country: `
-  ```
-  #!/bin/bash
+    `sudo apt install snapd` \
+    `sudo snap install geoip-lookup`
+    Go to: \
+    `touch /usr/local/bin/sshfilter.sh`
+    `sudo nano /usr/local/bin/sshfilter.sh`
+    Copy this script and edit your country: `
+    ```
+    #!/bin/bash
 
-  # UPPERCASE space-separated country codes to ACCEPT
-  ALLOW_COUNTRIES="VN HK"
+    # UPPERCASE space-separated country codes to ACCEPT
+    ALLOW_COUNTRIES="VN HK"
 
-  if [ $# -ne 1 ]; then
-    echo "Usage:  `basename $0` <ip>" 1>&2
-    exit 0 # return true in case of config issue
-  fi
+    if [ $# -ne 1 ]; then
+      echo "Usage:  `basename $0` <ip>" 1>&2
+      exit 0 # return true in case of config issue
+    fi
 
-  COUNTRY=`/usr/bin/geoiplookup $1 | awk -F ": " '{ print $2 }' | awk -F "," '{ print $1 }' | head -n 1`
+    COUNTRY=`/usr/bin/geoiplookup $1 | awk -F ": " '{ print $2 }' | awk -F "," '{ print $1 }' | head -n 1`
 
-  [[ $COUNTRY = "IP Address not found" || $ALLOW_COUNTRIES =~ $COUNTRY ]] && RESPONSE="ALLOW" || RESPONSE="DENY"
+    [[ $COUNTRY = "IP Address not found" || $ALLOW_COUNTRIES =~ $COUNTRY ]] && RESPONSE="ALLOW" || RESPONSE="DENY"
 
-  if [ $RESPONSE = "ALLOW" ]
-  then
-    exit 0
-  else
-    logger "$RESPONSE sshd connection from $1 ($COUNTRY)"
-    exit 1
-  fi
+    if [ $RESPONSE = "ALLOW" ]
+    then
+      exit 0
+    else
+      logger "$RESPONSE sshd connection from $1 ($COUNTRY)"
+      exit 1
+    fi
 
-  ```
-  Save file: \ 
-  `sudo chmod +x /usr/local/bin/sshfilter.sh` \
-  Apply SSH estrictions using TCP wrappers. \
-  `sudo nano /etc/hosts.deny`
-  `sshd: ALL`
-  
-  Now edit /etc/hosts.allow \
-  `sshd: ALL: aclexec /usr/local/bin/sshfilter.sh %a`
-  You can see all accessing SSH from an IP address \
-  `sudo cat /var/log/syslog | grep 'sshd'`
+    ```
+    Save file: \ 
+    `sudo chmod +x /usr/local/bin/sshfilter.sh` \
+    Apply SSH estrictions using TCP wrappers. \
+    `sudo nano /etc/hosts.deny`
+    `sshd: ALL`
 
-## Config squid server
-1. Install squid
-  `sudo apt install squid`
-2. Configuring Squid server
-  ```
-  # And finally deny all other access to this proxy
-  http_access allow all
-  
-  # Squid normally listens to port 3128
-  http_port 8888
+    Now edit /etc/hosts.allow \
+    `sshd: ALL: aclexec /usr/local/bin/sshfilter.sh %a`
+    You can see all accessing SSH from an IP address \
+    `sudo cat /var/log/syslog | grep 'sshd'`
 
-  cache_mem 256 MB
-  # Uncomment and adjust the following to add a disk cache directory.
-  cache_dir ufs /var/spool/squid 10000 16 256
-  
-  # Leave coredumps in the first cache dir
-  coredump_dir /var/spool/squid
-  ```
-  
-  if you want to anonymize 
-  ```
-  forwarded_for off
-  via off
-  
-  request_header_access Authorization allow all
-  request_header_access Proxy-Authorization allow all
-  request_header_access Cache-Control allow all
-  request_header_access Content-Length allow all
-  request_header_access Content-Type allow all
-  request_header_access Date allow all
-  request_header_access Host allow all
-  request_header_access If-Modified-Since allow all
-  request_header_access Pragma allow all
-  request_header_access Accept allow all
-  request_header_access Accept-Charset allow all
-  request_header_access Accept-Encoding allow all
-  request_header_access Accept-Language allow all
-  request_header_access Connection allow all
-  request_header_access All deny all
+  ## Config squid server
+  1. Install squid
+    `sudo apt install squid`
+  2. Configuring Squid server
+    ```
+    # And finally deny all other access to this proxy
+    http_access allow all
 
-  ```
+    # Squid normally listens to port 3128
+    http_port 8888
+
+    cache_mem 256 MB
+    # Uncomment and adjust the following to add a disk cache directory.
+    cache_dir ufs /var/spool/squid 10000 16 256
+
+    # Leave coredumps in the first cache dir
+    coredump_dir /var/spool/squid
+    ```
+
+    if you want to anonymize 
+    ```
+    forwarded_for off
+    via off
+
+    request_header_access Authorization allow all
+    request_header_access Proxy-Authorization allow all
+    request_header_access Cache-Control allow all
+    request_header_access Content-Length allow all
+    request_header_access Content-Type allow all
+    request_header_access Date allow all
+    request_header_access Host allow all
+    request_header_access If-Modified-Since allow all
+    request_header_access Pragma allow all
+    request_header_access Accept allow all
+    request_header_access Accept-Charset allow all
+    request_header_access Accept-Encoding allow all
+    request_header_access Accept-Language allow all
+    request_header_access Connection allow all
+    request_header_access All deny all
+
+    ```
 3.After config: 
   ` sudo systemctl restart squid` \
   ` sudo systemctl status squid ` \
   ` sudo ufw allow 8888` \
-  `sudo status ufw numbered`
+  `sudo status ufw numbered` \
   ```
   Status: active
 
