@@ -28,7 +28,7 @@ Hello everyone, before you continue, ensure you meet the following requirements:
     PermitEmptyPasswords no
     ```
 
-3. Install fail2ban 
+3. Install fail2ban \
     `sudo apt install fail2ban` \
     `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local` \
     `sudo nano /etc/fail2ban/jail.local`  \
